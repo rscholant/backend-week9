@@ -1,12 +1,17 @@
 const express = require('express');
+const multer = require('multer');
+const uploadConfig = require('./config/upload');
 const SessionController = require('./controllers/SessionController');
+const SpotController = require('./controllers/SpotController');
+const DashboardController = require('./controllers/DashboardController');
 
 const routes = express.Router();
+const upload = multer(uploadConfig);
 
-// GET, POST, PUT, DELETE { MÉTODOS MAIS UTILIZADOS }
-// req.query = Acessar query params (mais utilizado para filtros)
-// req.params = Acessar route params (para edição ou delete de registros especificos)
-// req.body = Acessar corpo da requisição (mais utilizado para criação/utilização de registros)
 routes.post('/sessions', SessionController.store);
+routes.get('/spots', SpotController.index);
+routes.post('/spots', upload.single('thumbnail'), SpotController.store);
+
+routes.get('/dashboard', DashboardController.show);
 
 module.exports = routes;
