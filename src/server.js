@@ -1,9 +1,10 @@
 const express = require('express');
+const routes = require('./routes');
 
 const app = express();
 
-// GET, POST, PUT, DELETE { MÉTODOS MAIS UTILIZADOS }
-
-app.get('/', (req, res) => res.json({ message: 'Hello World' }));
+// utilizado para o express reconhecer o json.
+app.use(express.json());
+app.use(routes);
 
 app.listen(3333);
